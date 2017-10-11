@@ -1,0 +1,21 @@
+---
+- name: Install pip.
+  yum:
+    update_cache=yes
+    name=python-pip
+    state=latest
+
+- name: Install boto3 for s3 module.
+  pip:
+    name=boto3
+    state=latest
+
+- name: Install s3cmd.
+  pip:
+    name=s3cmd
+    state=latest
+
+- name: create s3cfg file
+  vars_files:
+    - vars/main.yml
+  template: src=s3cfg.j2 dest={{ datalocation }}
